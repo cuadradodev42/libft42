@@ -6,7 +6,7 @@
 /*   By: acuadrad <acuadrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 22:23:00 by acuadrad          #+#    #+#             */
-/*   Updated: 2025/05/18 22:28:19 by acuadrad         ###   ########.fr       */
+/*   Updated: 2025/05/20 21:58:45 by acuadrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,20 @@ char	*ft_fill_str(char const *s, unsigned int start, char c)
 	return (str);
 }
 
+static char	**ft_free_split(char **str_split, unsigned int count)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		free(str_split[i]);
+		i++;
+	}
+	free(str_split);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char const c)
 {
 	unsigned int	word_count;
@@ -98,6 +112,8 @@ char	**ft_split(char const *s, char const c)
 	{
 		start_word = ft_start_word(s, c, i_str);
 		str_split[i_str] = ft_fill_str(s, start_word, c);
+		if (!str_split[i_str])
+			return (ft_free_split(str_split, i_str));
 		i_str++;
 	}
 	str_split[i_str] = NULL;

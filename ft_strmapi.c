@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acuadrad <acuadrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 10:34:51 by acuadrad          #+#    #+#             */
-/*   Updated: 2025/05/20 20:52:16 by acuadrad         ###   ########.fr       */
+/*   Created: 2025/05/19 12:43:14 by acuadrad          #+#    #+#             */
+/*   Updated: 2025/05/20 20:50:34 by acuadrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		n;
-	int		sig;
-	size_t	i;
-	size_t	nptr_len;
+	unsigned int	i;
+	unsigned int	s_len;
+	char			*s_copy;
 
-	n = 0;
-	sig = 1;
+	if (!s || !f)
+		return (NULL);
 	i = 0;
-	nptr_len = ft_strlen(nptr);
-	while ((nptr[i] >= 9 && nptr[i] <= 13 && nptr[i] != '\0') || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	s_len = ft_strlen(s);
+	s_copy = malloc ((s_len + 1) * sizeof(char));
+	if (!s_copy)
+		return (NULL);
+	ft_strlcpy(s_copy, s, s_len);
+	while (s[i] != '\0')
 	{
-		if (nptr[i] == '-')
-			sig = -sig;
+		s_copy[i] = f(i, s[i]);
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		n = (n * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (n * sig);
+	s_copy[i] = '\0';
+	return (s_copy);
 }

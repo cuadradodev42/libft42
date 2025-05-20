@@ -6,7 +6,7 @@
 #    By: acuadrad <acuadrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/26 10:58:48 by acuadrad          #+#    #+#              #
-#    Updated: 2025/05/18 22:43:17 by acuadrad         ###   ########.fr        #
+#    Updated: 2025/05/20 22:19:12 by acuadrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,30 +40,31 @@ SOURCES = \
 		ft_strtrim.c\
 		ft_split.c\
 		ft_itoa.c\
+		ft_putchar_fd.c\
+		ft_putstr_fd.c\
+		ft_putendl_fd.c\
+		ft_putnbr_fd.c\
+		ft_striteri.c\
+		ft_strmapi.c\
 
 OBJECTS = $(SOURCES:.c=.o)
-BOBJECTS = $(BSOURCES:.c=.o)
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(AR) -r $@ $?
-
-bonus: $(OBJECTS) $(BOBJECTS)
-	$(AR) -r $(NAME) $?
+	ar -r $@ $?
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $?
 
 clean:
-	rm -f $(OBJECTS) $(BOBJECTS)
+	rm -f $(OBJECTS) 
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
